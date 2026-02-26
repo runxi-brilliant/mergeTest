@@ -2,7 +2,8 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from utils.database import connect_to_mongo, close_mongo_connection  # 改这里
 import uvicorn
-from routes.auth import router as auth_router 
+from routes.auth import router as auth_router
+from routes.products import router as products_router
 app = FastAPI(
     title="CampusTrade API",
     description="AI-Powered Campus Marketplace for Students",
@@ -10,6 +11,8 @@ app = FastAPI(
     docs_url="/docs",
     redoc_url="/redoc"
 )
+
+app.include_router(products_router)
 
 # CORS 配置
 app.add_middleware(
