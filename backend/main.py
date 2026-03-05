@@ -64,6 +64,9 @@ async def startup_event():
     # 收藏：防止同一用户重复收藏同一商品
     await db.favorites.create_index([("user_id", 1), ("product_id", 1)], unique=True)
 
+    # AI 使用配额：按用户+日期快速查询
+    await db.ai_usage.create_index([("user_id", 1), ("date", 1)], unique=True)
+
     # products 索引（B3：搜索与查询优化）
     await db.products.create_index([("title", "text"), ("description", "text")])
     await db.products.create_index("created_at")

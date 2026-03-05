@@ -10,6 +10,20 @@
   transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
 
+.product-card-mine {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 2;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+  background: rgba(34, 197, 94, 0.95);
+  color: white;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
 .product-card-fav {
   position: absolute;
   top: 10px;

@@ -76,7 +76,16 @@ function Home() {
     } catch (_) {}
   }
 
-  // 将后端字段映射为前端展示格式（id, name, price, condition, category, image）
+  const currentUserId = useMemo(() => {
+    try {
+      const u = JSON.parse(localStorage.getItem("user") || "{}");
+      return u?.id || null;
+    } catch {
+      return null;
+    }
+  }, []);
+
+  // 将后端字段映射为前端展示格式
   const normalizedProducts = useMemo(() => {
     return products.map((p) => ({
       id: p.id,
@@ -84,6 +93,7 @@ function Home() {
       price: p.price,
       condition: p.condition || "good",
       category: p.category,
+      sellerId: p.seller_id,
       image: p.images?.length
         ? (p.images[0].startsWith("http") ? p.images[0] : `${API_BASE}${p.images[0]}`)
         : "https://placehold.co/400x400",
@@ -185,8 +195,15 @@ function Home() {
           </div>
         </div>
 
-        {/* My Favorites + My Orders + Logout */}
-        <div style={{ display: "flex", gap: 12 }}>
+        {/* My Listings + My Favorites + My Orders + Logout */}
+        <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
+          <button
+            className="logout-btn"
+            onClick={() => navigate("/my-listings")}
+            style={{ background: "#16a34a" }}
+          >
+            My Listings
+          </button>
           <button
             className="logout-btn"
             onClick={() => navigate("/favorites")}
@@ -215,6 +232,7 @@ function Home() {
             key={product.id}
             product={product}
             isFavorited={favoritedIds.has(String(product.id))}
+            isMine={currentUserId && String(product.sellerId) === String(currentUserId)}
             onToggleFavorite={localStorage.getItem("token") ? handleToggleFavorite : undefined}
           />
         ))}

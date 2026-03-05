@@ -2,7 +2,7 @@
 import "./ProductCard.css";
 import { useNavigate } from "react-router-dom";
 
-function ProductCard({ product, isFavorited, onToggleFavorite }) {
+function ProductCard({ product, isFavorited, isMine, onToggleFavorite }) {
   const navigate = useNavigate();
 
   // 兜底图（避免任何图片域名解析失败）
@@ -15,6 +15,9 @@ function ProductCard({ product, isFavorited, onToggleFavorite }) {
 
   return (
     <div className="product-card">
+      {isMine && (
+        <span className="product-card-mine" title="You published this">My Listing</span>
+      )}
       {onToggleFavorite != null && (
         <button
           type="button"

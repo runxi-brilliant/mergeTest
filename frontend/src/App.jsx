@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Home from "./pages/Home";
+import MyListings from "./pages/MyListings";
 import ProductDetail from "./pages/ProductDetail";
 import Chat from "./pages/Chat";
 import Login from "./pages/Login";
@@ -24,6 +25,7 @@ function App() {
 
         {/* 需要登录才能访问的页面 */}
         <Route path="/home" element={<ProtectedRoute><Home /></ProtectedRoute>} />
+        <Route path="/my-listings" element={<ProtectedRoute><MyListings /></ProtectedRoute>} />
         <Route path="/products/:id" element={<ProtectedRoute><ProductDetail /></ProtectedRoute>} />
         <Route path="/orders" element={<ProtectedRoute><Orders /></ProtectedRoute>} />
         <Route path="/favorites" element={<ProtectedRoute><Favorites /></ProtectedRoute>} />
